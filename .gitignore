@@ -1,0 +1,6 @@
+# ide/os related file
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*~
