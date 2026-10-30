@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Maglia in Viaggio | Atalanta for Special</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        atalanta: {
+                            blue: '#00529C',
+                            darkblue: '#002D62',
+                            black: '#080f1a',
+                            gold: '#D4AF37',
+                            goldhover: '#B59227',
+                            cardbg: '#0e1829'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Modern Continuous Unified Dark Background */
+        body {
+            background-color: #080f1a;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(0, 82, 156, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
+                linear-gradient(to bottom, rgba(8, 15, 26, 0.85), rgba(8, 15, 26, 0.98)),
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+        }
+
+        .nerazzurri-stripe {
+            background: repeating-linear-gradient(
+                90deg,
+                #00529C,
+                #00529C 20px,
+                #080f1a 20px,
+                #080f1a 40px
+            );
+        }
+        
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #E6C200 0%, #D4AF37 50%, #B59227 100%);
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(14, 24, 41, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        #toast {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-100 flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-50 bg-[#080f1a]/90 backdrop-blur-md border-b border-slate-800/80 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Brand Title -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 bg-atalanta-blue rounded-full border-2 border-atalanta-gold flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-shirt text-white text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-display font-black text-lg text-white tracking-wider uppercase leading-none">
+                            ATALANTA <span class="text-atalanta-gold">FOR SPECIAL</span>
+                        </span>
+                        <span class="text-[11px] font-semibold text-blue-400 tracking-widest uppercase mt-0.5">La Maglia in Viaggio</span>
+                    </div>
+                </a>
+
+                <!-- Uniform Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                    <a href="index.html" class="text-atalanta-gold transition-colors py-1 border-b-2 border-atalanta-gold">Home</a>
+                    <a href="diario.html" class="hover:text-atalanta-gold transition-colors py-1">Il Viaggio</a>
+                    <a href="partecipa.html" class="hover:text-atalanta-gold transition-colors py-1">Partecipa</a>
+                    <a href="dona.html" class="hover:text-atalanta-gold transition-colors py-1">Dona</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none" aria-label="Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#080f1a] border-b border-slate-800 px-4 pt-2 pb-6 space-y-2">
+            <a href="index.html" class="block px-3 py-2 rounded-lg text-base font-medium text-atalanta-gold bg-slate-900">Home</a>
+            <a href="diario.html" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-900 hover:text-atalanta-gold">Il Viaggio</a>
+            <a href="partecipa.html" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-900 hover:text-atalanta-gold">Partecipa</a>
+            <a href="dona.html" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-900 hover:text-atalanta-gold">Dona</a>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+
+        <!-- HERO / INTRO SECTION -->
+        <section class="relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Column: Official Intro Text -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-atalanta-blue/25 border border-atalanta-blue/50 text-atalanta-gold text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-route"></i> Progetto Solidale Territoriale
+                    </div>
+                    
+                    <h1 class="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none uppercase">
+                        La Maglia <br class="hidden sm:inline"/>
+                        <span class="gold-gradient-text">in Viaggio</span>
+                    </h1>
+                    
+                    <div class="space-y-4 text-slate-300 text-base sm:text-lg font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        <p>
+                            Il progetto punta a coinvolgere <strong class="text-white font-semibold">1.907 partecipanti</strong> e a raccogliere <strong class="text-white font-semibold">50.000 euro</strong> per un pulmino di <span class="text-atalanta-gold font-semibold">Atalanta for Special</span>.
+                        </p>
+                        <p>
+                            La maglia passa tra persone e realtà del territorio; ogni partecipante la fotografa accanto a un oggetto significativo, <strong class="text-white font-semibold underline decoration-atalanta-gold decoration-2">senza indossarla</strong>, e accompagna la foto con un breve racconto.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Compact "Come Donare" Box -->
+                <div class="lg:col-span-5">
+                    <div class="glass-card rounded-3xl p-6 sm:p-7 shadow-2xl relative border-t-2 border-t-atalanta-gold/60">
+                        <div class="absolute -top-3 left-6 bg-atalanta-gold text-atalanta-black font-display font-black text-[11px] px-3 py-0.5 rounded uppercase tracking-wider shadow">
+                            Donazione Libera
+                        </div>
+                        
+                        <h2 class="font-display font-bold text-lg text-white mb-2 flex items-center gap-2 mt-1">
+                            <i class="fa-solid fa-heart text-red-500"></i> Come Donare
+                        </h2>
+
+                        <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                            Si può aderire senza donare e donare senza ricevere la maglia. Ogni aiuto è prezioso per l'acquisto del pulmino.
+                        </p>
+
+                        <!-- IBAN Box -->
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 space-y-2 mb-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Bonifico Bancario</span>
+                                <button id="copy-iban-btn" type="button" class="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors flex items-center gap-1 border border-slate-700">
+                                    <i class="fa-regular fa-copy"></i> Copia IBAN
+                                </button>
+                            </div>
+                            <code id="iban-text" class="block font-mono text-xs sm:text-sm font-bold text-atalanta-gold tracking-wider">IT99 A000 0000 0000 0000 0000 1907</code>
+                            <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-900">
+                                Intestato a: <strong class="text-slate-200">Atalanta for Special ASD</strong>
+                            </div>
+                        </div>
+
+                        <!-- Online Link -->
+                        <a href="dona.html" class="w-full bg-atalanta-blue hover:bg-blue-700 text-white font-display font-bold text-xs py-3 px-4 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2 border border-blue-400/30">
+                            <i class="fa-solid fa-credit-card text-sm"></i> Altre Modalità e Donazione Online
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- WIDGET CONTATORI / OBIETTIVI -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <!-- Subtle accent bar -->
+            <div class="w-full h-1 nerazzurri-stripe absolute top-0 left-0"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 divide-y md:divide-y-0 md:divide-x divide-slate-800/80">
+                
+                <!-- Counter 1: Partecipanti -->
+                <div class="pt-2 md:pt-0 md:pr-8 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400">Obiettivo Persone</span>
+                            <h3 class="font-display font-bold text-xl text-white">Partecipanti Confermati</h3>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex items-baseline gap-2">
+                        <span class="font-display font-black text-4xl sm:text-5xl text-white">842</span>
+                        <span class="text-slate-400 font-medium text-base">/ 1.907</span>
+                        <span class="ml-auto text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                            44%
+                        </span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                        <div class="bg-atalanta-blue h-full rounded-full transition-all duration-1000 ease-out" style="width: 44.1%"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-400 flex justify-between">
+                        <span>1 tappa = 1 partecipante</span>
+                        <span>Mancano 1.065 tappe</span>
+                    </p>
+                </div>
+
+                <!-- Counter 2: Fondi Raccolti -->
+                <div class="pt-6 md:pt-0 md:pl-8 space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-atalanta-gold font-display">Obiettivo Pulmino</span>
+                            <h3 class="font-display font-bold text-xl text-white">Raccolta Fondi</h3>
+                        </div>
+                        <div class="w-10 h-10 bg-amber-500/10 border border-amber-500/30 text-atalanta-gold rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-van-shuttle"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex items-baseline gap-2">
+                        <span class="font-display font-black text-4xl sm:text-5xl text-white">23.500 €</span>
+                        <span class="text-slate-400 font-medium text-base">/ 50.000 €</span>
+                        <span class="ml-auto text-xs font-bold text-atalanta-gold bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">
+                            47%
+                        </span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden p-0.5 border border-slate-800">
+                        <div class="gold-gradient-bg h-full rounded-full transition-all duration-1000 ease-out" style="width: 47%"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-400 flex justify-between">
+                        <span>Donazioni verificate ed effettive</span>
+                        <span>Mancano 26.500 €</span>
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Last Update Footer -->
+            <div class="mt-6 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+                <span class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Data ultimo aggiornamento: <strong class="text-slate-200">30 Ottobre 2026</strong>
+                </span>
+                <span class="italic text-slate-400">Iniziative e donazioni gestite separatamente</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-slate-800/80 bg-[#060b13]/90 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 bg-atalanta-blue rounded-full border border-atalanta-gold flex items-center justify-center text-white text-xs">
+                    <i class="fa-solid fa-shirt"></i>
+                </div>
+                <span class="font-display font-bold text-slate-200 uppercase tracking-wider">
+                    Atalanta for Special &copy; 2026
+                </span>
+            </div>
+            <div class="flex items-center space-x-6 text-slate-400">
+                <a href="index.html" class="hover:text-white">Home</a>
+                <a href="diario.html" class="hover:text-white">Il Viaggio</a>
+                <a href="partecipa.html" class="hover:text-white">Partecipa</a>
+                <a href="dona.html" class="hover:text-white">Dona</a>
+                <a href="admin-login.html" class="hover:text-atalanta-gold transition-colors"><i class="fa-solid fa-lock text-[10px]"></i> Area Riservata</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-atalanta-gold/50 flex items-center gap-3 transform translate-y-20 opacity-0 pointer-events-none z-50">
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <div class="text-xs font-bold text-white">IBAN Copiato!</div>
+            <div class="text-[11px] text-slate-400">Incollalo nell'app della tua banca per il bonifico.</div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Copy IBAN
+            const copyBtn = document.getElementById('copy-iban-btn');
+            const ibanText = document.getElementById('iban-text');
+            const toast = document.getElementById('toast');
+
+            if (copyBtn && ibanText) {
+                copyBtn.addEventListener('click', () => {
+                    const textToCopy = ibanText.innerText;
+                    const tempInput = document.createElement('input');
+                    tempInput.value = textToCopy;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+
+                    if (toast) {
+                        toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+                        setTimeout(() => {
+                            toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
